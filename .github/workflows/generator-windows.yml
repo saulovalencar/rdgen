@@ -330,7 +330,22 @@ jobs:
         run: |
           Invoke-WebRequest -Uri https://raw.githubusercontent.com/bryangerlach/rdgen/refs/heads/master/.github/patches/themeColors.py -OutFile themeColors.py
           python themeColors.py
-
+      - name: STi - texto personalizado (desk_tip)
+        shell: python
+        run: |
+          import io, re
+          msg = "Este é o suporte oficial da STi Soluções em TI. Só informe seu ID e aceite a conexão se você solicitou atendimento. Dúvidas: (67) 9.9876-7801 / (67) 9.9812-4799."
+          total = 0
+          for f in ["src/lang/ptbr.rs", "src/lang/en.rs"]:
+              with io.open(f, encoding="utf-8") as fh:
+                  s = fh.read()
+              new, n = re.subn(r'\("desk_tip",\s*"[^"]*"\)', '("desk_tip", "%s")' % msg, s)
+              print("STi:", f, "substituicoes:", n)
+              total += n
+              with io.open(f, "w", encoding="utf-8", newline="") as fh:
+                  fh.write(new)
+          if total == 0:
+              raise SystemExit("STi: desk_tip nao encontrado - texto nao aplicado")
       - name: Patch remote printer port to spool file
         shell: python
         run: |
