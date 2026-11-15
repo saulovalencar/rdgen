@@ -334,7 +334,7 @@ jobs:
         shell: python
         run: |
           import io, os, re
-          msg = "Este é o suporte oficial da STi Soluções em TI. Só informe seu ID e aceite a conexão se você solicitou atendimento. Dúvidas: (67) 9.9876-7801 / (67) 9.9812-4799."
+          msg = "Este é o Suporte Oficial da STi Soluções. Só informe seu ID e aceite a conexão se você solicitou atendimento. Dúvidas: (67) 9.9876-7801 / (67) 9.9812-4799."
           pat = re.compile(r'\("desk_tip",\s*"[^"]*"\)')
           total = 0
           for base in ["src", "libs"]:
